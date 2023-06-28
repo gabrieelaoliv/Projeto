@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class UsuarioVO {
     private String nome, email, senha, cpf;
 
-    private LocalDate data;
+    private LocalDate data_nasc;
 
     private Long id;
 
@@ -26,7 +26,7 @@ public class UsuarioVO {
     }
 
     public LocalDate getData() {
-        return data;
+        return data_nasc;
     }
 
     public Long getId() {
@@ -50,7 +50,7 @@ public class UsuarioVO {
     }
 
     public void setData(LocalDate data) {
-        this.data = data;
+        this.data_nasc = data;
     }
 
     public void setId(Long id) {
