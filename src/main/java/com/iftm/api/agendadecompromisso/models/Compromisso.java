@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import org.aspectj.apache.bcel.generic.ObjectType;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "compromisso")
 public class Compromisso {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,25 +18,33 @@ public class Compromisso {
     @Column(name = "titulo", nullable = false, length = 100)
     private String titulo;
 
-    @Column(name = "descricao", nullable = false, length = 500)
+    @Column(name = "descricao", nullable = false, length = 240)
     private String descricao;
 
-    @Column(name = "localizao", nullable = false, length = 100)
-    private String localizacao;
-
-    @Column(name = "data", nullable = false, length = 100)
+    @Column(name = "data", nullable = false)
     private LocalDateTime data;
 
-    @Column(name = "status", nullable = false, length = 50)
-    private String status;
+    @Column(name = "status", nullable = false, length = 20)
+    @Enumerated(value = EnumType.STRING) //Enum
+    private StatusCompromisso status;
 
-    public Compromisso(Long id, String titulo, String descricao, String localizacao, LocalDateTime data, String status) {
-        this.id = id;
+    @ManyToOne
+    private Agenda agenda;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="convidados",
+            joinColumns = {@JoinColumn(name = "id_compromisso")},
+            inverseJoinColumns = {@JoinColumn(name = "id_usuario")})
+    private List<Usuario> convidados = new ArrayList<>();
+
+    public Compromisso(){}
+
+    public Compromisso(String titulo, String descricao, LocalDateTime data, Agenda agenda, List<Usuario> convidados) {
         this.titulo = titulo;
         this.descricao = descricao;
-        this.localizacao = localizacao;
         this.data = data;
-        this.status = status;
+        this.agenda = agenda;
+        this.convidados = convidados;
     }
 
     public Long getId() {
@@ -50,20 +59,20 @@ public class Compromisso {
         return descricao;
     }
 
-    public String getLocalizacao() {
-        return localizacao;
-    }
-
     public LocalDateTime getData() {
         return data;
     }
 
-    public String getStatus() {
+    public StatusCompromisso getStatus() {
         return status;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public List<Usuario> getConvidados() {
+        return convidados;
     }
 
     public void setTitulo(String titulo) {
@@ -74,15 +83,11 @@ public class Compromisso {
         this.descricao = descricao;
     }
 
-    public void setLocalizacao(String localizacao) {
-        this.localizacao = localizacao;
-    }
-
     public void setData(LocalDateTime data) {
         this.data = data;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusCompromisso status) {
         this.status = status;
     }
 
@@ -92,7 +97,6 @@ public class Compromisso {
                 "id=" + id +
                 ", titulo='" + titulo + '\'' +
                 ", descricao='" + descricao + '\'' +
-                ", localizao='" + localizacao + '\'' +
                 ", local e data='" + data + '\'' +
                 ", status='" + status + '\'' +
                 '}';
@@ -104,12 +108,12 @@ public class Compromisso {
         if(o == null || getClass() != o.getClass()) return false;
         Compromisso compromisso = (Compromisso) o;
         return Objects.equals(id, compromisso.id) && Objects.equals(titulo, compromisso.titulo) &&
-                Objects.equals(descricao, compromisso.descricao) && Objects.equals(localizacao, compromisso.localizacao)
+                Objects.equals(descricao, compromisso.descricao)
                 && Objects.equals(data, compromisso.data) && Objects.equals(status, compromisso.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id,titulo, descricao, localizacao, data, status);
+        return Objects.hash(id,titulo, descricao, data, status);
     }
 }
