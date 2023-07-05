@@ -17,12 +17,17 @@ public class UsuarioController {
         return usuarioService.findAll();
     }
 
+    @GetMapping ("/{id}")
+    public UsuarioVO findById(@PathVariable("id") Long id) throws Exception {
+        return usuarioService.findById(id);
+    }
+
     @PostMapping
     public UsuarioVO save (@RequestBody UsuarioVO usuarioVO) {
         return usuarioService.salvarUsuario(usuarioVO);
     }
 
-    @PutMapping
+    @PutMapping ("/{id}")
     public UsuarioVO update(@RequestBody UsuarioVO usuarioVO) {
         return usuarioService.update(usuarioVO);
     }
@@ -31,7 +36,6 @@ public class UsuarioController {
     public String delete(@PathVariable("id") Long id) {
         return usuarioService.delete(id);
     }
-
 
 
 

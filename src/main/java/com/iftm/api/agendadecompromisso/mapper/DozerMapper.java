@@ -1,6 +1,8 @@
 package com.iftm.api.agendadecompromisso.mapper;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.iftm.api.agendadecompromisso.data.vo.UsuarioVO;
+import com.iftm.api.agendadecompromisso.models.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,4 +20,5 @@ public class DozerMapper {
         }
         return destinationObjects;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.iftm.api.agendadecompromisso.services;
 import com.iftm.api.agendadecompromisso.data.vo.UsuarioVO;
+import com.iftm.api.agendadecompromisso.exceptions.ResourceNotFoundException;
 import com.iftm.api.agendadecompromisso.mapper.DozerMapper;
 import com.iftm.api.agendadecompromisso.models.Agenda;
 import com.iftm.api.agendadecompromisso.models.Usuario;
@@ -29,6 +30,13 @@ public class UsuarioService {
         return DozerMapper.parseListObject(usuarioRepository.findAll(), UsuarioVO.class);
     }
 
+    public UsuarioVO findById(Long id) throws Exception{
+        var dbusuario = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Não há registro para esse ID"));
+        var usuario = DozerMapper.parseObject(dbusuario, UsuarioVO.class);
+
+        return usuario;
+    }
+
     public UsuarioVO salvarUsuario(UsuarioVO usuarioVO) {
         Usuario usuario = DozerMapper.parseObject(usuarioVO, Usuario.class);
         Usuario dbuser = usuarioRepository.save(usuario);
@@ -43,7 +51,8 @@ public class UsuarioService {
     }
 
     public String delete(Long id) {
-        return "User with id " + id + " has been deleted!";
-        //criado através do deletemapping UsuarioController
+        var dbusuario = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Não há registro para esse ID."));
+        usuarioRepository.deleteById(id);
+        return "Usuário com esse ID " + id + " foi deletado!";
     }
 }
