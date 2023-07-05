@@ -1,13 +1,15 @@
 package com.iftm.api.agendadecompromisso.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table (name = "agenda")
-public class Agenda {
+@Table (name = "tb_agenda")
+public class Agenda implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,7 @@ public class Agenda {
         return id;
     }
 
+    @JsonIgnore
     public Usuario getUsuario() {
         return usuario;
     }
@@ -33,5 +36,13 @@ public class Agenda {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCompromissos(List<Compromisso> compromissos) {
+        this.compromissos = compromissos;
     }
 }

@@ -1,59 +1,86 @@
 package com.iftm.api.agendadecompromisso.data.vo;
 
-import java.time.LocalDate;
+import com.iftm.api.agendadecompromisso.models.Agenda;
+import jakarta.persistence.*;
 
-public class UsuarioVO {
-    private String nome, email, senha, cpf;
+import java.io.Serializable;
+import java.util.Date;
 
-    private LocalDate data_nasc;
+public class UsuarioVO implements Serializable {
 
     private Long id;
+    private String nome;
+    private String cpf;
+    private Date dataNasc;
+    private String email;
+    private String senha;
+    private Agenda agenda;
 
-    public String getNome() {
-        return nome;
+    public UsuarioVO() {
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public LocalDate getData() {
-        return data_nasc;
+    public UsuarioVO(String nome, String cpf, Date dataNasc, String email, String senha, Agenda agenda) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNasc = dataNasc;
+        this.email = email;
+        this.senha = senha;
+        this.agenda = agenda;
     }
 
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public String getCpf() {
+        return cpf;
     }
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public void setData(LocalDate data) {
-        this.data_nasc = data;
+    public Date getDataNasc() {
+        return dataNasc;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDataNasc(Date dataNasc) {
+        this.dataNasc = dataNasc;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
     }
 }

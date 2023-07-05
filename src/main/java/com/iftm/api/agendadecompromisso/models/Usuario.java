@@ -2,12 +2,13 @@ package com.iftm.api.agendadecompromisso.models;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table (name = "usuario")
-public class Usuario {
+@Table (name = "tb_usuario")
+public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,8 +19,8 @@ public class Usuario {
     @Column(name = "CPF", nullable = false, length = 11)
     private String cpf;
 
-    @Column(name = "dataNasc", nullable = false)
-    private LocalDate dataNasc;
+    @Column(name = "data_nasc")
+    private Date dataNasc;
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;
@@ -32,7 +33,7 @@ public class Usuario {
 
     private Usuario() {}
 
-    public Usuario(String nome, String cpf, LocalDate dataNasc, String email, String senha) {
+    public Usuario(String nome, String cpf, Date dataNasc, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNasc = dataNasc;
@@ -52,7 +53,7 @@ public class Usuario {
         return cpf;
     }
 
-    public LocalDate getDataNasc() {
+    public Date getDataNasc() {
         return dataNasc;
     }
 
@@ -70,7 +71,7 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public void setDataNasc(LocalDate dataNasc) {
+    public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }
 
@@ -80,6 +81,18 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
     }
 
     @Override

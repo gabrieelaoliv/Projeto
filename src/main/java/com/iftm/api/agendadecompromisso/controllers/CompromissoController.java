@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/api/v1/compromisso")
 
 public class CompromissoController {
-
     @Autowired
     private CompromissoService compromissoService;
 
@@ -21,4 +20,7 @@ public class CompromissoController {
     public List<CompromissoVO> findAll() {
         return compromissoService.findAll();
     }
+
+
+
 }

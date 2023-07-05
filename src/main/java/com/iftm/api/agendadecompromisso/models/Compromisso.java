@@ -3,14 +3,15 @@ package com.iftm.api.agendadecompromisso.models;
 import jakarta.persistence.*;
 import org.aspectj.apache.bcel.generic.ObjectType;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "compromisso")
-public class Compromisso {
+@Table(name = "tb_compromisso")
+public class Compromisso implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,11 +19,11 @@ public class Compromisso {
     @Column(name = "titulo", nullable = false, length = 100)
     private String titulo;
 
-    @Column(name = "descricao", nullable = false, length = 240)
+    @Column(name = "descricao", length = 240)
     private String descricao;
 
     @Column(name = "data", nullable = false)
-    private LocalDateTime data;
+    private Date data;
 
     @Column(name = "status", nullable = false, length = 20)
     @Enumerated(value = EnumType.STRING) //Enum
@@ -39,7 +40,7 @@ public class Compromisso {
 
     public Compromisso(){}
 
-    public Compromisso(String titulo, String descricao, LocalDateTime data, Agenda agenda, List<Usuario> convidados) {
+    public Compromisso(String titulo, String descricao, Date data, Agenda agenda, List<Usuario> convidados) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.data = data;
@@ -59,7 +60,7 @@ public class Compromisso {
         return descricao;
     }
 
-    public LocalDateTime getData() {
+    public Date getData() {
         return data;
     }
 
@@ -83,7 +84,7 @@ public class Compromisso {
         this.descricao = descricao;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

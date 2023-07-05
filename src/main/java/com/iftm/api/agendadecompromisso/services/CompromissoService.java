@@ -9,9 +9,7 @@ import java.util.List;
 public class CompromissoService {
     public List<CompromissoVO> findAll() {
 
-        CompromissoVO compromisso = new  CompromissoVO();
-
-        return List.of(compromisso);
+       return null;
 
     }
 

@@ -1,14 +1,22 @@
 package com.iftm.api.agendadecompromisso.data.vo;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.util.Date;
 
-public class CompromissoVO {
+public class CompromissoVO implements Serializable {
 
     private Long id;
 
-    private String titulo, descricao, localizacao, statusCompromisso;
+    private String titulo, descricao, statusCompromisso;
 
-    private LocalDateTime dataCompromisso; //salva dia e hora
+    private Date dataCompromisso; //salva dia e hora
+
+    public CompromissoVO(String titulo, String descricao, String statusCompromisso, Date dataCompromisso) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.statusCompromisso = statusCompromisso;
+        this.dataCompromisso = dataCompromisso;
+    }
 
     public Long getId() {
         return id;
@@ -22,20 +30,12 @@ public class CompromissoVO {
         return descricao;
     }
 
-    public String getLocalizacao() {
-        return localizacao;
-    }
-
-    public String getStatusCompromisso() {
+     public String getStatusCompromisso() {
         return statusCompromisso;
     }
 
-    public LocalDateTime getDataCompromisso() {
+    public Date getDataCompromisso() {
         return dataCompromisso;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setTitulo(String titulo) {
@@ -46,15 +46,14 @@ public class CompromissoVO {
         this.descricao = descricao;
     }
 
-    public void setLocalizacao(String localizacao) {
-        this.localizacao = localizacao;
-    }
-
     public void setStatusCompromisso(String statusCompromisso) {
-        this.statusCompromisso = statusCompromisso;
+        this.statusCompromisso = statusCompromisso;    }
+
+    public void setDataCompromisso(Date dataCompromisso) {
+        this.dataCompromisso = dataCompromisso;
     }
 
-    public void setDataCompromisso(LocalDateTime dataCompromisso) {
-        this.dataCompromisso = dataCompromisso;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
