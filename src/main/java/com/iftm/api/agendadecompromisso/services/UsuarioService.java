@@ -1,5 +1,7 @@
 package com.iftm.api.agendadecompromisso.services;
+
 import com.iftm.api.agendadecompromisso.data.vo.UsuarioVO;
+import com.iftm.api.agendadecompromisso.exceptions.RequiredObjectIsNullException;
 import com.iftm.api.agendadecompromisso.exceptions.ResourceNotFoundException;
 import com.iftm.api.agendadecompromisso.mapper.DozerMapper;
 import com.iftm.api.agendadecompromisso.models.Agenda;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @Service
 public class UsuarioService {
 
@@ -21,8 +25,15 @@ public class UsuarioService {
     private AgendaRepository agendaRepository;
 
     public UsuarioVO update(UsuarioVO usuarioVO) {
-        //criado através do UsuarioController
+        if (usuarioVO == null) throw new RequiredObjectIsNullException();
 
+        usuarioRepository.findById(usuarioVO.getId()).orElseThrow(() ->
+                new ResourceNotFoundException("Não há registro para esse ID"));
+
+        Usuario user = DozerMapper.parseObject(usuarioVO, Usuario.class);
+        user = usuarioRepository.save(user);
+
+        usuarioVO = DozerMapper.parseObject(user, UsuarioVO.class);
         return usuarioVO;
     }
 
@@ -30,11 +41,10 @@ public class UsuarioService {
         return DozerMapper.parseListObject(usuarioRepository.findAll(), UsuarioVO.class);
     }
 
-    public UsuarioVO findById(Long id) throws Exception{
-        var dbusuario = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Não há registro para esse ID"));
-        var usuario = DozerMapper.parseObject(dbusuario, UsuarioVO.class);
-
-        return usuario;
+    public UsuarioVO findById(Long id) {
+        var dbusuario = usuarioRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Não há registro para esse ID"));
+        return DozerMapper.parseObject(dbusuario, UsuarioVO.class);
     }
 
     public UsuarioVO salvarUsuario(UsuarioVO usuarioVO) {
@@ -51,8 +61,14 @@ public class UsuarioService {
     }
 
     public String delete(Long id) {
-        var dbusuario = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Não há registro para esse ID."));
+        usuarioRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Não há registro para esse ID."));
+
         usuarioRepository.deleteById(id);
         return "Usuário com esse ID " + id + " foi deletado!";
+    }
+
+    public List<Usuario> findAllById(List<Long> idsUsuarios) {
+        return usuarioRepository.findAllById(idsUsuarios);
     }
 }

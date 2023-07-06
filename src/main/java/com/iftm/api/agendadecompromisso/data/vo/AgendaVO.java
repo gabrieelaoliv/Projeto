@@ -12,13 +12,13 @@ import java.util.List;
 public class AgendaVO implements Serializable  {
 
     private Long id;
-    private Usuario usuario;
-    private List<Compromisso> compromissos = new ArrayList<>();
+    private UsuarioVO usuario;
+    private List<CompromissoVO> compromissos = new ArrayList<>();
 
     public AgendaVO() {
     }
 
-    public AgendaVO(Usuario usuario, List<Compromisso> compromissos) {
+    public AgendaVO(UsuarioVO usuario, List<CompromissoVO> compromissos) {
         this.usuario = usuario;
         this.compromissos = compromissos;
     }
@@ -31,21 +31,21 @@ public class AgendaVO implements Serializable  {
         this.id = id;
     }
 
-    //@JsonIgnore
-    public Usuario getUsuario() {
-
+    @JsonIgnore
+    public UsuarioVO getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(UsuarioVO usuario) {
         this.usuario = usuario;
     }
 
-    public List<Compromisso> getCompromissos() {
+    @JsonIgnore
+    public List<CompromissoVO> getCompromissos() {
         return compromissos;
     }
 
-    public void setCompromissos(List<Compromisso> compromissos) {
+    public void setCompromissos(List<CompromissoVO> compromissos) {
         this.compromissos = compromissos;
     }
 }

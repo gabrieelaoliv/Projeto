@@ -14,12 +14,12 @@ public class UsuarioVO implements Serializable {
     private Date dataNasc;
     private String email;
     private String senha;
-    private Agenda agenda;
+    private AgendaVO agenda;
 
     public UsuarioVO() {
     }
 
-    public UsuarioVO(String nome, String cpf, Date dataNasc, String email, String senha, Agenda agenda) {
+    public UsuarioVO(String nome, String cpf, Date dataNasc, String email, String senha, AgendaVO agenda) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNasc = dataNasc;
@@ -76,11 +76,11 @@ public class UsuarioVO implements Serializable {
         this.senha = senha;
     }
 
-    public Agenda getAgenda() {
+    public AgendaVO getAgenda() {
         return agenda;
     }
 
-    public void setAgenda(Agenda agenda) {
+    public void setAgenda(AgendaVO agenda) {
         this.agenda = agenda;
     }
 }

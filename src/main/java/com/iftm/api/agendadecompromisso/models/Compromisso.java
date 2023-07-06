@@ -33,6 +33,7 @@ public class Compromisso implements Serializable {
     private Agenda agenda;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    //terceira tabela
     @JoinTable(name="convidados",
             joinColumns = {@JoinColumn(name = "id_compromisso")},
             inverseJoinColumns = {@JoinColumn(name = "id_usuario")})
@@ -90,6 +91,19 @@ public class Compromisso implements Serializable {
 
     public void setStatus(StatusCompromisso status) {
         this.status = status;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
+    }
+
+    public void setConvidados(List<Usuario> convidados) {
+        this.convidados = convidados;
     }
 
     @Override

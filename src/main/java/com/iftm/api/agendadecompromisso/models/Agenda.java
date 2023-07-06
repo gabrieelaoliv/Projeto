@@ -25,7 +25,7 @@ public class Agenda implements Serializable {
         return id;
     }
 
-    @JsonIgnore
+    // @JsonIgnore
     public Usuario getUsuario() {
         return usuario;
     }

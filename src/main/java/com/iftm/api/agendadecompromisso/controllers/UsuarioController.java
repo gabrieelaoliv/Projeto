@@ -18,7 +18,7 @@ public class UsuarioController {
     }
 
     @GetMapping ("/{id}")
-    public UsuarioVO findById(@PathVariable("id") Long id) throws Exception {
+    public UsuarioVO findById(@PathVariable("id") Long id) {
         return usuarioService.findById(id);
     }
 

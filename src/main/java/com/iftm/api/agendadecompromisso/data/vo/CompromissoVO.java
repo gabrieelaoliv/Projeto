@@ -1,21 +1,35 @@
 package com.iftm.api.agendadecompromisso.data.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.iftm.api.agendadecompromisso.models.StatusCompromisso;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CompromissoVO implements Serializable {
 
     private Long id;
 
-    private String titulo, descricao, statusCompromisso;
+    private String titulo, descricao;
 
-    private Date dataCompromisso; //salva dia e hora
+    private StatusCompromisso status;
 
-    public CompromissoVO(String titulo, String descricao, String statusCompromisso, Date dataCompromisso) {
+    private Date data; //salva dia e hora
+
+    private List<UsuarioVO> convidados = new ArrayList<>();
+
+    private AgendaVO agenda;
+    public CompromissoVO() {}
+
+
+    public CompromissoVO(String titulo, StatusCompromisso status, Date data, AgendaVO agenda, List<UsuarioVO> convidados) {
         this.titulo = titulo;
-        this.descricao = descricao;
-        this.statusCompromisso = statusCompromisso;
-        this.dataCompromisso = dataCompromisso;
+        this.status = status;
+        this.data = data;
+        this.agenda = agenda;
+        this.convidados = convidados;
     }
 
     public Long getId() {
@@ -30,12 +44,12 @@ public class CompromissoVO implements Serializable {
         return descricao;
     }
 
-     public String getStatusCompromisso() {
-        return statusCompromisso;
+    public StatusCompromisso getStatus() {
+        return status;
     }
 
-    public Date getDataCompromisso() {
-        return dataCompromisso;
+    public Date getData() {
+        return data;
     }
 
     public void setTitulo(String titulo) {
@@ -46,14 +60,32 @@ public class CompromissoVO implements Serializable {
         this.descricao = descricao;
     }
 
-    public void setStatusCompromisso(String statusCompromisso) {
-        this.statusCompromisso = statusCompromisso;    }
+    public void setStatus(StatusCompromisso status) {
+        this.status = status;
+    }
 
-    public void setDataCompromisso(Date dataCompromisso) {
-        this.dataCompromisso = dataCompromisso;
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
+
+    public AgendaVO getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(AgendaVO agenda) {
+        this.agenda = agenda;
+    }
+
+    public List<UsuarioVO> getConvidados() {
+        return convidados;
+    }
+
+    public void setConvidados(List<UsuarioVO> convidados) {
+        this.convidados = convidados;
+    }
+
 }
