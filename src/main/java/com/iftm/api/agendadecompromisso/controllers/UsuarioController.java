@@ -27,7 +27,7 @@ public class UsuarioController {
         return usuarioService.salvarUsuario(usuarioVO);
     }
 
-    @PutMapping ("/{id}")
+    @PutMapping
     public UsuarioVO update(@RequestBody UsuarioVO usuarioVO) {
         return usuarioService.update(usuarioVO);
     }

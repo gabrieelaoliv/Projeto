@@ -32,7 +32,7 @@ public class Compromisso implements Serializable {
     @ManyToOne
     private Agenda agenda;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     //terceira tabela
     @JoinTable(name="convidados",
             joinColumns = {@JoinColumn(name = "id_compromisso")},
