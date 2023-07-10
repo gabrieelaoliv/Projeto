@@ -1,12 +1,11 @@
 package com.iftm.api.agendadecompromisso.data.vo;
 
-import com.iftm.api.agendadecompromisso.models.Agenda;
-import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class UsuarioVO implements Serializable {
+public class UsuarioVO extends RepresentationModel<UsuarioVO> implements Serializable {
 
     private Long id;
     private String nome;

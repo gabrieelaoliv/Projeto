@@ -1,7 +1,6 @@
 package com.iftm.api.agendadecompromisso.models;
 
 import jakarta.persistence.*;
-import org.aspectj.apache.bcel.generic.ObjectType;
 
 import java.io.Serializable;
 import java.util.ArrayList;

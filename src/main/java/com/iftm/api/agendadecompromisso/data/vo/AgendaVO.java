@@ -1,12 +1,13 @@
 package com.iftm.api.agendadecompromisso.data.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AgendaVO implements Serializable {
+public class AgendaVO extends RepresentationModel<AgendaVO> implements Serializable {
 
     private Long id;
     private UsuarioVO usuario;

@@ -1,7 +1,6 @@
 package com.iftm.api.agendadecompromisso.controllers;
 
 import com.iftm.api.agendadecompromisso.data.vo.CompromissoVO;
-import com.iftm.api.agendadecompromisso.data.vo.UsuarioVO;
 import com.iftm.api.agendadecompromisso.services.CompromissoService;
 import com.iftm.api.agendadecompromisso.utils.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +22,7 @@ public class CompromissoController {
     @Autowired
     private CompromissoService compromissoService;
 
-    @GetMapping
+    @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(
             summary = "Find all compromissos.", description = "Find all compromissos.", tags = {"Compromisso"},
             responses = {
@@ -43,7 +42,8 @@ public class CompromissoController {
         return compromissoService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(
             summary = "Find a compromisso by ID.", description = "Find a compromisso by ID.", tags = {"Compromisso"},
             responses = {
@@ -66,7 +66,8 @@ public class CompromissoController {
     }
 
     //query
-    @GetMapping("/titulo/{texto}")
+    @GetMapping(value = "/titulo/{texto}", produces = {MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(
             summary = "Find a compromisso by titulo.", description = "Find a compromisso by titulo.",
             tags = {"Compromisso"},
@@ -89,7 +90,8 @@ public class CompromissoController {
         return compromissoService.findByTitulo(texto);
     }
 
-    @PostMapping
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(
             summary = "Create a compromisso.", description = "Create a compromisso.", tags = {"Compromisso"},
             responses = {
@@ -109,7 +111,8 @@ public class CompromissoController {
         return compromissoService.salvarCompromisso(compromissoVO);
     }
 
-    @PutMapping
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(
             summary = "Update a compromisso.", description = "Update a compromisso.", tags = {"Compromisso"},
             responses = {

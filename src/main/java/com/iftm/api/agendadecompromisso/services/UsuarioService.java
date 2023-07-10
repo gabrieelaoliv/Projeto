@@ -1,5 +1,6 @@
 package com.iftm.api.agendadecompromisso.services;
 
+import com.iftm.api.agendadecompromisso.controllers.UsuarioController;
 import com.iftm.api.agendadecompromisso.data.vo.UsuarioVO;
 import com.iftm.api.agendadecompromisso.exceptions.RequiredObjectIsNullException;
 import com.iftm.api.agendadecompromisso.exceptions.ResourceNotFoundException;
@@ -14,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class UsuarioService {
@@ -43,13 +47,23 @@ public class UsuarioService {
         return usuarioVO;
     }
 
-    public List<UsuarioVO> findAll() {
-        return DozerMapper.parseListObject(usuarioRepository.findAll(), UsuarioVO.class);
+   public List<UsuarioVO> findAll() {
+        var users = DozerMapper.parseListObject(usuarioRepository.findAll(), UsuarioVO.class);
+        users.stream().forEach(user -> {
+            user.add(linkTo(methodOn(UsuarioController.class).findById(user.getId()))
+                    .withSelfRel()
+            );
+        });
+
+        return users;
     }
 
     public UsuarioVO findById(Long id) {
-        var dbusuario = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Não há registro para esse ID"));
-        return DozerMapper.parseObject(dbusuario, UsuarioVO.class);
+        var dbusuario = usuarioRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Não há registro para esse ID"));
+        var user = DozerMapper.parseObject(dbusuario, UsuarioVO.class);
+        user.add(linkTo(methodOn(UsuarioController.class).findById(id)).withSelfRel());
+        return user;
     }
 
     public UsuarioVO salvarUsuario(UsuarioVO usuarioVO) {
@@ -62,7 +76,10 @@ public class UsuarioService {
         dbuser.setAgenda(novaAgenda);
         dbuser = usuarioRepository.save(usuario);
 
-        return DozerMapper.parseObject(dbuser, UsuarioVO.class);
+        usuarioVO = DozerMapper.parseObject(dbuser, UsuarioVO.class);
+        usuarioVO.add(linkTo(methodOn(UsuarioController.class)
+                .findById(usuarioVO.getId())).withSelfRel());
+        return usuarioVO;
     }
 
     public String delete(Long id) {

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/usuario")
 @Tag(name = "Usuario", description = "Endpoint for managing users.")
@@ -21,7 +22,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping
+    @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(
             summary = "Find all users.", description = "Find all users.", tags = {"Usuario"},
             responses = {
@@ -41,7 +42,8 @@ public class UsuarioController {
         return usuarioService.findAll();
     }
 
-    @GetMapping ("/{id}")
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YML})
     @Operation(
             summary = "Find a user by ID.", description = "Find a user by ID.", tags = {"Usuario"},
             responses = {
@@ -63,7 +65,8 @@ public class UsuarioController {
         return usuarioService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(
             summary = "Create a user.", description = "Create a user.", tags = {"Usuario"},
             responses = {
@@ -79,11 +82,12 @@ public class UsuarioController {
                             content = @Content)
             }
     )
-    public UsuarioVO save (@RequestBody UsuarioVO usuarioVO) {
+    public UsuarioVO save(@RequestBody UsuarioVO usuarioVO) {
         return usuarioService.salvarUsuario(usuarioVO);
     }
 
-    @PutMapping
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(
             summary = "Update a user.", description = "Update a user.", tags = {"Usuario"},
             responses = {
@@ -103,7 +107,7 @@ public class UsuarioController {
         return usuarioService.update(usuarioVO);
     }
 
-    @DeleteMapping ("/{id}")
+    @DeleteMapping("/{id}")
     @Operation(
             summary = "Deletes a Usuario by ID.", description = "Deletes a Usuario by ID.",
             tags = {"Usuario"},
@@ -119,7 +123,6 @@ public class UsuarioController {
     public String delete(@PathVariable("id") Long id) {
         return usuarioService.delete(id);
     }
-
 
 
 }
