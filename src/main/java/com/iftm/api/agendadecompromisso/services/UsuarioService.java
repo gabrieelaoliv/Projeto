@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 @Service
 public class UsuarioService {
 
@@ -70,20 +68,13 @@ public class UsuarioService {
     public String delete(Long id) {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Não há registro para esse ID."));
 
-        List<Compromisso> listadecompromisso = compromissoRepository.findAllByConvidados_Id(id);
+        List<Compromisso> listaDeCompromisso = compromissoRepository.findAllByConvidados_Id(id);
 
-        listadecompromisso.forEach(compromisso -> {
+        listaDeCompromisso.forEach(compromisso -> {
             compromisso.getConvidados().remove(usuario);
         });
 
-        //teste para remover o compromisso automaticamente com 1 convidado só
-        listadecompromisso.forEach(compromisso -> {
-            if (compromisso.getConvidados().isEmpty()) {
-                compromissoRepository.deleteById(compromisso.getId());
-            }
-        });
-
-        compromissoRepository.saveAll(listadecompromisso);
+        compromissoRepository.saveAll(listaDeCompromisso);
 
         usuarioRepository.deleteById(id);
         return "Usuário com esse ID " + id + " foi deletado!";

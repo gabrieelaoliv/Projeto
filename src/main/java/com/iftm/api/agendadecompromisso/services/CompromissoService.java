@@ -63,12 +63,11 @@ public class CompromissoService {
 
         Compromisso compromisso = DozerMapper.parseObject(compromissoVO, Compromisso.class);
 
-        //fazer a consulta no banco para verificarse a agenda existe
-
         compromisso = compromissoRepository.save(compromisso);
 
         compromissoVO = DozerMapper.parseObject(compromisso, CompromissoVO.class);
         return compromissoVO;
+
     }
 
     public String delete(Long id) {
@@ -78,4 +77,14 @@ public class CompromissoService {
         compromissoRepository.deleteById(id);
         return "Usuário com esse ID " + id + " foi deletado!";
     }
+
+    public List<CompromissoVO> findByTitulo(String texto) {
+
+        List<Compromisso> listaTitulo = compromissoRepository.findByTitulo(texto);
+
+        return DozerMapper.parseListObject(compromissoRepository.findByTitulo(texto), CompromissoVO.class);
+
+    }
+
 }
+
